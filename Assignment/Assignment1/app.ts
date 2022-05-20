@@ -55,15 +55,14 @@ function charInput() {
                 //console.log(formattedTime)
                 const formattedTime: string = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${hours}:${minutes}`
                 const newObj = {
-                    formattedTime: formattedTime,
-                    time: {
+                    [formattedTime]: {
                         open: data[i][j + 1],
                         high: data[i][j + 2],
                         low: data[i][j + 3],
                         close: data[i][j + 4]
                     }
                 }
-                console.log(Object.values(newObj))
+                console.log(newObj)
                 i++;
             }
         })
@@ -71,26 +70,65 @@ function charInput() {
 //charInput();
 
 //3
-const orderBook = async () => {
-    function calculateOutputAmount(usdtAmount: string) {
+const orderBook = () => {
+    function calculateOutputAmount(usdtAmount: number) {
         fetch('https://api1.binance.com/api/v3/depth?symbol=BTCUSDT')
             .then(res => res.json())
             .then((data) => {
-                const bids = data.bids
-                const test: string = bids[0].find((usdt: string) => {
-                    for (let i = 0 ; i < bids.length;) {
-                        if (usdt[0] == usdtAmount) {
-                            return console.log(usdt[0][1])
-                        }
-                        else {
-                            //console.log(usdt.length)
-                        }
-                        i++;
+                let coin: number = 0;
+                let amount =usdtAmount ;
+                data.asks.map((item: number[], index: number) => {
+                    const usdt: number = +item[0];
+                    const btc: number = +item[1];
+                    const calBTC = amount / usdt;
+                    if (amount > 0) {
+                        //console.log(`coin 1 : Input ${amount} , coin:${coin}, item:${btc}`)
+                        const coinTotal = calBTC > btc ? coin + btc : coin + calBTC;
+                        amount = amount - (usdt * (coinTotal - coin));
+                        coin = coinTotal;
+                        //console.log(`coin 1 : Input ${amount} , coin:${coin} , item:${btc}`)
+
                     }
+                    // else if (usdtAmount<0){
+                    //     console.log(`coin 2 : Input ${usdtAmount} , coin:${coin} , item:${btc}`)
+                    //     coin += calBTC ;
+                    //     usdtAmount = usdtAmount-(usdt*calBTC);
+                    //     console.log(`coin 2 : Input ${usdtAmount} , coin:${coin}, item:${btc}`)
+
+                    // }
+
                 })
+                console.log(`Input USDT : ${usdtAmount}`)
+                console.log(`Output BTC : ${coin} `)
+
+                // const asks: number[][] = [
+                //     [10000, 3],
+                //     [20000, 2],
+                //     [5000,4]
+                // ];
+                // let coin: number = 0;
+                // asks.map((item: number[], index) => {
+                //     const calBTC = usdtAmount/item[0];
+                //     if(index != asks.length && usdtAmount>0){
+                //         console.log(`coin 1 : Input ${usdtAmount} , coin:${coin}, item:${item[1]}`)
+                //         const coinTotal = calBTC > item[1] ? coin+item[1] : coin+calBTC ;
+                //         usdtAmount = usdtAmount-(item[0]*(coinTotal-coin));
+                //         coin= coinTotal ;
+                //         console.log(`coin 1 : Input ${usdtAmount} , coin:${coin} , item:${item[1]}`)
+
+                //     }
+                // else if (usdtAmount>0){
+                //     console.log(`coin 2 : Input ${usdtAmount} , coin:${coin} , item:${item[1]}`)
+                //     coin += calBTC ;
+                //     usdtAmount = usdtAmount-(item[0]*calBTC);
+                //     console.log(`coin 2 : Input ${usdtAmount} , coin:${coin}, item:${item[1]}`)
+
+                // }
+
+
             })
     }
-    console.log(calculateOutputAmount('29149.67000000'))
+    calculateOutputAmount(290000)
 
 }
 orderBook()
