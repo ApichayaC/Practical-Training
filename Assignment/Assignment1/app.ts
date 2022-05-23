@@ -46,9 +46,10 @@ function charInput() {
         .then(res => res.json())
         .then(data => {
             for (let i = 0; i < data.length;) {
-                let j = 0;
-                const openTime = data[i][j]
+                //let j = 0;
+                const openTime = data[i][0]
                 const date = new Date(openTime);
+                //const date1 = new Date(openTime).toISOString().slice(0,16).replace('T',' ')
                 const hours = date.getHours();
                 const minutes = "0" + date.getMinutes();
                 //const formattedTime:string = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + ' ' + hours + ':' + minutes as string
@@ -56,10 +57,10 @@ function charInput() {
                 const formattedTime: string = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${hours}:${minutes}`
                 const newObj = {
                     [formattedTime]: {
-                        open: data[i][j + 1],
-                        high: data[i][j + 2],
-                        low: data[i][j + 3],
-                        close: data[i][j + 4]
+                        open: data[i][1],
+                        high: data[i][2],
+                        low: data[i][3],
+                        close: data[i][4]
                     }
                 }
                 console.log(newObj)
