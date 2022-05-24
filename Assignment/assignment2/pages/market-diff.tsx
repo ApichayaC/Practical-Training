@@ -1,65 +1,113 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { GetServerSideProps } from "next"
 import fetchApi from "./api/fetchApi"
-import { url } from "inspector"
 
 export default function MarketDiff() {
     const [token1, setToken1] = useState('')
     const [token2, setToken2] = useState('')
-    const [ftx,setFtx] = useState()
-    const [list, setList] = useState<string[]>([]);
-    const [binance,setBinance] = useState()
-    // type OHLC =[
-    //     token1 : string,
-    //     token2 :string,
-    //     binancePrice : number,
-    //     ftxPrice : number,
-    //     diff: number
-    // ]
-    
-        const fetchToken = async () => {
-        // TODO: return if token1 === '' || token2 === '' 
-        //const url1 = await axios.get('https://api1.binance.com/api/v3/avgPrice?symbol=BTCUSDT')
-        if(Boolean(token1)&&Boolean(token2)){
+    const [ftx, setFtx] = useState()
+    const [binance, setBinance] = useState()
+    const [list, setList] = useState<any>([])
+    const fetchToken = async () => {
+        if (token1 !== '' && token2 !== '') {
             const url1 = await axios.get(`https://api1.binance.com/api/v3/avgPrice?symbol=` + token1 + token2)
-            const url2 = await axios.get('/api/fetchApi',{
-                params:{token1,token2}
+            const url2 = await axios.get('/api/fetchApi', {
+                params: { token1, token2 }
             })
             const ftxPrice = url2.data.result.price
-            const binancePrice =url1.data.price
+            const binancePrice = url1.data.price
+            const diff = binancePrice - ftxPrice
             setBinance(binancePrice)
             setFtx(ftxPrice)
-            const newList : number|string [] = [
-                token1,token2,binancePrice,ftxPrice,binancePrice-ftxPrice
-            ]
-            setList(newList)
-            console.log(url2.data.result)
-            
+            setList([{
+                Token1: token1,
+                Token2: token2,
+                binancePrice: binancePrice,
+                ftxPrice: ftxPrice,
+                diff: diff,
+            }, ...list])
+            list.sort(function(a: any, b: any){
+                const atoken = a.Token1
+                const btoken = b.Token1
+                if (atoken > btoken) {
+                    return 1
+                }
+                else if (atoken < btoken) {
+                    return -1
+                }
+                else {
+                    const atoken = a.Token2
+                    const btoken = b.Token2
+                    if (atoken > btoken) {
+                        return 1
+                    }
+                    else if (atoken < btoken) {
+                        return -1
+                    }
+                    else {
+                        return 0;
+                    }
+                }
+            })
+           // console.log(list);
+
+        }
+        else {
+            console.error('Error');
+            alert("Please enter a Token")
         }
     }
-    console.log('list',list)
-    useEffect(()=>{
-        fetchToken()
-    },[])
+    //console.log('list', list)
+
+    const getList = (item: any, index: number) => {
+        // if(list && list.length){
+        return (
+            <tr key={index}>
+                <td>{item.Token1}</td>
+                <td>{item.Token2}</td>
+                <td>{item.binancePrice}</td>
+                <td>{item.ftxPrice}</td>
+                <td>{item.diff}</td>
+                <td>
+                    <button onClick={() => deleteList(index)}>
+                        delete
+                    </button>
+                </td>
+
+            </tr>)
+        //     ))
+        // }
+    }
+    const deleteList = (id: number) => {
+        console.log({ id, list })
+        const newList = list.filter((item: any, index: number) => id != index)
+        // const x = list.splice(id,1)
+        console.log({ newList });
+        setList(newList)
+    }
+
     return (
         <div>
             <div>
-                <a href="/market-diff"> Market Diff </a>
-                <a href="/chart"> Chart </a>
-                <a href="/trade"> Trade </a>
+                <a href="/market-diff"> Market Diff </a><br />
+                <a href="/chart"> Chart </a><br />
+                <a href="/trade"> Trade </a><br />
             </div>
             <div>
                 <h1>Market Diff</h1>
                 <label>Token 1</label>
+                <br />
                 <input
                     type='text'
-                    onChange={e => { setToken1(e.target.value.toUpperCase()) ;fetchToken()}}
+                    onChange={e => { setToken1(e.target.value.toUpperCase()); }}
                 />
+                <br />
                 <label>Token 2</label>
+                <br />
                 <input
                     type='text'
-                    onChange={e => { setToken2(e.target.value.toUpperCase());fetchToken() }} />
+                    onChange={e => { setToken2(e.target.value.toUpperCase()); }} />
+                <br />
                 <button onClick={fetchToken}>Fetch</button>
             </div>
             <div>
@@ -76,14 +124,12 @@ export default function MarketDiff() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                        <td>{list[0]}</td>
-                        <td>{list[1]}</td>
-                        <td>{list[2]}</td>
-                        <td>{list[3]}</td>
-                        <td>{list[4]}</td>
-
-                        </tr>
+                        {/* {getList()} */}
+                        {
+                            list && list.map((item: any, index: number) => {
+                                return getList(item, index)
+                            })
+                        }
                     </tbody>
                 </table>
             </div>
