@@ -19,14 +19,14 @@ export default function MarketDiff() {
             const diff = binancePrice - ftxPrice
             setBinance(binancePrice)
             setFtx(ftxPrice)
-            setList([{
+            const newList = [{
                 Token1: token1,
                 Token2: token2,
                 binancePrice: binancePrice,
                 ftxPrice: ftxPrice,
                 diff: diff,
-            }, ...list])
-            list.sort(function(a: any, b: any){
+            }, ...list]
+            newList.sort(function(a: any, b: any){
                 const atoken = a.Token1
                 const btoken = b.Token1
                 if (atoken > btoken) {
@@ -49,6 +49,7 @@ export default function MarketDiff() {
                     }
                 }
             })
+            setList(newList)
            // console.log(list);
 
         }
@@ -124,7 +125,6 @@ export default function MarketDiff() {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {getList()} */}
                         {
                             list && list.map((item: any, index: number) => {
                                 return getList(item, index)

@@ -53,8 +53,8 @@ function charInput() {
                 const hours = date.getHours();
                 const minutes = "0" + date.getMinutes();
                 //const formattedTime:string = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + ' ' + hours + ':' + minutes as string
-                //console.log(formattedTime)
                 const formattedTime: string = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${hours}:${minutes}`
+                console.log(formattedTime)
                 const newObj = {
                     [formattedTime]: {
                         open: data[i][1],
@@ -63,12 +63,13 @@ function charInput() {
                         close: data[i][4]
                     }
                 }
-                console.log(newObj)
+                //console.log(newObj)
                 i++;
             }
+            //console.log('length',data.length)
         })
 }
-//charInput();
+charInput();
 
 //3
 const orderBook = () => {
@@ -132,5 +133,5 @@ const orderBook = () => {
     calculateOutputAmount(290000)
 
 }
-orderBook()
+//orderBook()
 
