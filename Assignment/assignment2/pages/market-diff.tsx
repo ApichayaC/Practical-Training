@@ -1,6 +1,5 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import fetchApi from "./api/fetchApi"
 
 export default function MarketDiff() {
     const [token1, setToken1] = useState('')

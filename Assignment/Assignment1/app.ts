@@ -63,13 +63,13 @@ function charInput() {
                         close: data[i][4]
                     }
                 }
-                //console.log(newObj)
+                console.log(newObj)
                 i++;
             }
             //console.log('length',data.length)
         })
 }
-charInput();
+//charInput();
 
 //3
 const orderBook = () => {
@@ -91,42 +91,9 @@ const orderBook = () => {
                         //console.log(`coin 1 : Input ${amount} , coin:${coin} , item:${btc}`)
 
                     }
-                    // else if (usdtAmount<0){
-                    //     console.log(`coin 2 : Input ${usdtAmount} , coin:${coin} , item:${btc}`)
-                    //     coin += calBTC ;
-                    //     usdtAmount = usdtAmount-(usdt*calBTC);
-                    //     console.log(`coin 2 : Input ${usdtAmount} , coin:${coin}, item:${btc}`)
-
-                    // }
-
                 })
                 console.log(`Input USDT : ${usdtAmount}`)
                 console.log(`Output BTC : ${coin} `)
-
-                // const asks: number[][] = [
-                //     [10000, 3],
-                //     [20000, 2],
-                //     [5000,4]
-                // ];
-                // let coin: number = 0;
-                // asks.map((item: number[], index) => {
-                //     const calBTC = usdtAmount/item[0];
-                //     if(index != asks.length && usdtAmount>0){
-                //         console.log(`coin 1 : Input ${usdtAmount} , coin:${coin}, item:${item[1]}`)
-                //         const coinTotal = calBTC > item[1] ? coin+item[1] : coin+calBTC ;
-                //         usdtAmount = usdtAmount-(item[0]*(coinTotal-coin));
-                //         coin= coinTotal ;
-                //         console.log(`coin 1 : Input ${usdtAmount} , coin:${coin} , item:${item[1]}`)
-
-                //     }
-                // else if (usdtAmount>0){
-                //     console.log(`coin 2 : Input ${usdtAmount} , coin:${coin} , item:${item[1]}`)
-                //     coin += calBTC ;
-                //     usdtAmount = usdtAmount-(item[0]*calBTC);
-                //     console.log(`coin 2 : Input ${usdtAmount} , coin:${coin}, item:${item[1]}`)
-
-                // }
-
 
             })
     }
