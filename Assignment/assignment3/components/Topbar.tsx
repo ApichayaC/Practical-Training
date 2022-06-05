@@ -20,15 +20,15 @@ const Menus = [
 const Topbar = () => {
     const router = useRouter();
     return (
-        <div className=' flex justify-between items-center px-20 py-4 bg-darkbg'>
-            <div className='flex'>
-                <img className='w-[54px] h-[54px] mr-4' src='/image 8-2.png' />
+        <div className=' flex justify-between items-center px-8 sm:px-20 py-4 bg-darkbg relative z-50 w-full'>
+            <div className='flex sm:flex'>
+                <img className='w-8 h-8 sm:w-[54px] sm:h-[54px] sm:mr-4 mr-2 ' src='/image 8-2.png' />
                 <div>
-                    <p className=' text-white text-lg font-bold'>FINSTABLE</p>
-                    <p className=' text-textBlue'>Traning</p>
+                    <p className=' text-white text-sm sm:text-xl font-bold'>FINSTABLE</p>
+                    <p className=' text-textBlue text-xs sm:text-lg'>Traning</p>
                 </div>
             </div>
-            <div className='flex text-white space-x-28 items-center'>
+            {/* <div className='flex text-white space-x-28 items-center'>
                 {Menus.map((menu) => (
                     <Link key={menu.href} href={menu.href}>
                         <a
@@ -39,7 +39,7 @@ const Topbar = () => {
                             {menu.text}</a>
                     </Link>
                 ))}
-            </div>
+            </div> */}
         </div>
     )
 }
