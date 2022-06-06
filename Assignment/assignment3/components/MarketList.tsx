@@ -1,6 +1,7 @@
 import React from "react";
 
 const MarketList = () => {
+    
     return (
         <div className="w-full sm:w-full sm:max-w-4xl ">
             <h3 className="text-left text-2xl sm:text-3xl font-bold mb-4 p-2">List</h3>

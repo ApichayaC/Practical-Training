@@ -57,6 +57,34 @@ const MarketForm = () => {
       alert("Please enter a Token")
     }
   }
+  const getList = (item: any, index: number) => {
+    // if(list && list.length){
+    return (
+      <tr key={index}>
+        <td className="p-2 sm:p-4 text-sm sm:text-base">{item.Token1}</td>
+        <td className="p-2 sm:p-4 text-sm sm:text-base">{item.Token2}</td>
+        <td className="p-2 sm:p-4 text-sm sm:text-base">{item.binancePrice}</td>
+        <td className="p-2 sm:p-4 text-sm sm:text-base">{item.ftxPrice}</td>
+        <td className="p-2 sm:p-4 text-sm sm:text-base">{item.diff}</td>
+        <td className="p-2 sm:p-4 text-sm sm:text-base">
+          <button
+            className=" rounded-md bg-red-500 text-white w-20 h-8"
+            onClick={() => deleteList(index)}>
+            delete
+          </button>
+        </td>
+
+      </tr>)
+    //     ))
+    // }
+  }
+  const deleteList = (id: number) => {
+    console.log({ id, list })
+    const newList = list.filter((item: any, index: number) => id != index)
+    // const x = list.splice(id,1)
+    console.log({ newList });
+    setList(newList)
+  }
   return (
     <div className="rounded-xl shadow-lg w-full h-84 sm:w-full sm:max-w-4xl p-2 sm:p-12 bg-white z-20 relative ">
       <form>
@@ -89,6 +117,8 @@ const MarketForm = () => {
         </div>
       </form>
     </div>
+
+
   );
 };
 
