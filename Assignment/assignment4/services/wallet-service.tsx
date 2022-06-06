@@ -1,18 +1,40 @@
 import { ethers } from "ethers";
 
 declare global {
-    interface Window {
-        ethereum: ethers.providers.ExternalProvider & ethers.providers.JsonRpcFetchFunc
-    }
+  interface Window {
+    ethereum: any;
+  }
 }
-export const connectWallet = ()=> {
-if (typeof window.ethereum !== 'undefined' && window.ethereum.request) {
-    return window.ethereum.request({ method: 'eth_requestAccounts' });
-}}
-export const getWallet = ()=>{
-    if(typeof window.ethereum !== 'undefined' && window.ethereum){
-        const walletAddr = (window.ethereum as any).selectedAddress 
-        return walletAddr as string;
-    }
-    return null;
+
+export const getEthereum = () => {
+  if (typeof window.ethereum !== 'undefined') {
+    return window.ethereum;
+  }
+  return null;
+}
+
+export const getProvider = () => {
+  const ethereum = getEthereum()
+  if (ethereum) {
+    return new ethers.providers.Web3Provider(getEthereum()); // what MetaMask injects as window.ethereum into each page
+  }
+  return null
+}
+
+//connect user account in metamask
+export const connectWallet = () => {
+  return getEthereum()?.request({
+    method: "eth_requestAccounts",
+  }) as Promise<string>;
+}
+
+export const getWalletAddress = () => {
+  return getEthereum()?.selectedAddress as string;
+}
+
+//handle chain network
+export const getChainId = () => {
+  return getEthereum()?.request({
+    method: "eth_chainId"
+  }) as Promise<string>;
 }
