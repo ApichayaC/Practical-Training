@@ -11,9 +11,9 @@ const marketDiff = () => {
                         <MarketForm />
                     <div className=" bg-darkbg h-full w-full absolute -top-28" />
                 </div>
-                {/* <div className="flex justify-center w-full sm:px-14 px-4 mt-4">
+                <div className="flex justify-center w-full sm:px-14 px-4 mt-4">
                     <MarketList />
-                </div> */}
+                </div>
             </div>
         </NavLayout>
     )
