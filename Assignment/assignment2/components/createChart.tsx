@@ -1,5 +1,5 @@
 import { createChart } from 'lightweight-charts';
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import axios from 'axios';
 
 const ChartCreate = (props: any) => {

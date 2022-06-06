@@ -3,6 +3,7 @@ import Topbar from '../components/Topbar'
 import TradeAmount from '../components/TradeAmount'
 import TradeForm from '../components/TradeForm'
 import TradeList from '../components/TradeList'
+import TradeOrder from '../components/TradeOrder'
 import NavLayout from '../layouts/NavLayout'
 
 const trade = () => {
@@ -18,6 +19,9 @@ const trade = () => {
                 </div>
                 <div className='flex justify-center w-full'>
                     <TradeAmount/>
+                </div>
+                <div className="flex justify-center w-full sm:px-14 px-4 mt-4">
+                    <TradeOrder/>
                 </div>
             </div>
         </NavLayout>

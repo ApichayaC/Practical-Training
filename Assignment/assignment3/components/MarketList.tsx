@@ -4,12 +4,11 @@ const MarketList = () => {
     return (
         <div className="w-full sm:w-full sm:max-w-4xl ">
             <h3 className="text-left text-2xl sm:text-3xl font-bold mb-4 p-2">List</h3>
-            {/* <div className="bg-white border-2 border-sky-200 rounded-lg shadow-lg text-center"> */}
             <div className="rounded-lg shadow-lg w-full  border-2 border-sky-200 text-center max-w-4xl bg-white z-20 relative sm:overflow-x-hidden overflow-x-auto">
 
                 <table className="p-4  w-full">
                     <thead>
-                        <tr className="border-2 border-gray-100">
+                        <tr className="border-2 border-b-gray-100 border-white rounded-t-lg">
                             <th className="p-2 sm:p-4 text-sm sm:text-base">Token1</th>
                             <th className="p-2 sm:p-4 text-sm sm:text-base">Token2</th>
                             <th className="p-2 sm:p-4 text-sm sm:text-base">Binance</th>
@@ -44,7 +43,7 @@ const MarketList = () => {
                 </table>
             </div>
         </div>
-    );
-};
+    )
+}
 
 export default MarketList;
