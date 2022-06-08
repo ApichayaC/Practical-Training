@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ethers } from 'ethers';
+import { ethers, Signer } from 'ethers';
 import { getBalance, getChainId, getProvider, getWalletAddress, getEthereum } from '../services/wallet-service';
 import { formatEther, formatUnits } from 'ethers/lib/utils';
 import { getNetworkCurr, getNetworkTokens } from '../constants/network-id';
@@ -75,7 +75,22 @@ const WalletForm = () => {
         setTokenBalances({ ...tokenBalances });
     };
 
-    const transferBal = ()=> {
+    const [addressTransfer, setAddressTrans] = useState<string|null>(null)
+    const [addrToken,setAddrToken] = useState("")
+    const [amount, setAmount] = useState('')
+    const [hash,setHash] =useState('')
+
+    const transferBal = async()=> {
+        const abi = ["function transfer(address to, uint amount)"];
+        const contract = new ethers.Contract(addrToken, abi, getProvider()!);
+        // const provider:any = getProvider()?.getSigner()
+        const tokenSigner = contract.connect(getProvider()!.getSigner())
+        const tokenAmount = ethers.utils.parseUnits(amount,18) // decimal->number
+
+        const transaction = await tokenSigner.transfer(addressTransfer,tokenAmount)
+        // console.log(transaction.hash);
+        setHash(transaction.hash)
+        
         
     }
 
@@ -136,9 +151,13 @@ const WalletForm = () => {
             </div>
             <div>
                 <div>
-                    <input>Address</input>
-                    <input>Amount</input>
-                    <button>Transfer</button>
+                    <div>
+                    <input onChange={(e)=>setAddressTrans(e.target.value)}/>
+                    <input onChange={(e)=>setAddrToken(e.target.value)}/>
+                    <input onChange={(e)=>setAmount(e.target.value)}/>
+                    <button onClick={transferBal}>Transfer</button>
+                    <a target="_blank" href={`https://kovan.etherscan.io/tx/${hash}`}>Hash</a>
+                    </div>
                 </div>
             </div>
         </div>

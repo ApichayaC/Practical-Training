@@ -46,10 +46,17 @@ export const KOVAN_TOKENS = [
         decimals: 6,
         imageUrl: "https://cryptologos.cc/logos/usd-coin-usdc-logo.png?v=022",
         address: "0x7079f3762805CFf9C979a5bDC6f5648bCFEE76C8"
+    },
+    {
+        name: "Link",
+        symbol: "LINK",
+        decimals : 18,
+        imageUrl : "https://cryptologos.cc/logos/chainlink-link-logo.png?v=022",
+        address: "0xa36085F69e2889c224210F603D836748e7dC0088"
     }
 ]
 
-export const ROPSTEN_TOKENS = [
+export const BITKUB_TOKENS = [
     {
         name: "USD Theter",
         symbol: "USDT",
