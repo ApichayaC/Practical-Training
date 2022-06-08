@@ -1,42 +1,45 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { getWalletAddress, connectWallet, getChainId } from "../services/wallet-service";
-import { getNetworkName } from "../constants/network-id";
+import { getWalletAddress, connectWallet, getEthereum } from "../services/wallet-service";
+import Topbar from "../components/Topbar";
+import WalletForm from "../components/WalletForm";
 
 const Home: NextPage = () => {
   const [address, setAddress] = useState<string | null>(null);
-  const [network, setNetwork] = useState<string | null>(null);
-
-  const accountData = async() => {
+  const accountData = async () => {
     const addr = getWalletAddress() //user address
     // console.log(addr);
     setAddress(addr)
-
-    const chainId =await getChainId();
-    setNetwork(chainId)
-
   }
-
   useEffect(() => {
     accountData()
+    //show realtime
+    const handleAccountChange = (addresses: string[]) => {
+      setAddress(addresses[0]);
+      accountData();
+    };
+    getEthereum()?.on("accountsChanged", handleAccountChange);
+
   })
   return (
-    <div>
+    <div className="bg-slate-100 h-screen">
       {address ?
         (
           <div>
-            <p>My wallet address is {address}</p>
-            <p>Current network is {getNetworkName(network)} {network}</p>
+            <Topbar />
+            <WalletForm />
           </div>
         )
         :
         (
-          <button
-            className="bg-blue-500 rounded-lg text-white px-8 py-4"
-            onClick={connectWallet}
-          >
-            Connect
-          </button>
+          <div className="flex h-screen w-full justify-center items-center bg-slate-100">
+            <button
+              className="bg-blue-500 rounded-lg text-white px-8 py-4 hover:bg-blue-300 cursor-pointer shadow-sm"
+              onClick={connectWallet}
+            >
+              Connect
+            </button>
+          </div>
         )
       }
     </div>

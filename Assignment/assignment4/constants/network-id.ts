@@ -12,21 +12,10 @@ export const getNetworkName = (chainId: string | null) => {
       return "Kovan Test Network";
     case "0x56":
       return "Binance Smart Chain Mainnet";
+    case "0x60":
+      return "Bitkub Chain";
     default:
       return "Unknown network";
-  }
-};
-
-export const getNetworkCurrency = (chainId: string | null) => {
-  switch (chainId) {
-    case "0x38":
-      return "BNB";
-    case "0x61":
-      return "BNB";
-    case "0x6545":
-      return "KUB";
-    default:
-      return "ETH";
   }
 };
 
@@ -34,22 +23,34 @@ export const getNetworkTokens = (chainId: string | null) => {
   switch (chainId) {
     case "0x1":
       return ETH_TOKENS;
-    case "0x2a":
-      return KOVAN_TOKENS;
     case "0x4":
       return RINKEBY_TOKENS;
-    case "0x38":
-      return ETH_TOKENS;
-    case "0x61":
-      return ETH_TOKENS;
-    case "0x6545":
-      return ETH_TOKENS;
+    case "0x2a":
+      return KOVAN_TOKENS;
+    // case "0x56":
+    //   return "Binance Smart Chain Mainnet";
+    //   case "0x60":
+    //   return "Bitkub Chain";
     default:
       return ETH_TOKENS;
   }
 };
 
-export const getNetworkToken = (
+export const getNetworkCurr = (chainId: string | null) => {
+  switch (chainId) {
+    case "0x56":
+      return "BNB";
+    case "0x61":
+      return "BTC";
+    case "0x38":
+      return "USDT";
+    default:
+      return "ETH";
+  }
+}
+
+
+export const getNetwork_Token = (
   chainId: string | null,
   tokenSymbol: string
 ) => {
@@ -58,24 +59,16 @@ export const getNetworkToken = (
     case "0x1":
       tokenList = ETH_TOKENS;
       break;
-    case "0x2a":
-      tokenList = KOVAN_TOKENS;
-      break;
     case "0x4":
       tokenList = RINKEBY_TOKENS;
       break;
-    case "0x38":
-      tokenList = ETH_TOKENS;
+    case "0x2a":
+      tokenList = KOVAN_TOKENS;
       break;
-    case "0x61":
-      tokenList = ETH_TOKENS;
-      break;
-    case "0x6545":
-      tokenList = ETH_TOKENS;
-      break;
+
     default:
       tokenList = ETH_TOKENS;
       break;
   }
   return tokenList.find((token) => token.symbol === tokenSymbol);
-};
+}

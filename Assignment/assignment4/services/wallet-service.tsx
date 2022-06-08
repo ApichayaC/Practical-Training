@@ -38,3 +38,9 @@ export const getChainId = () => {
     method: "eth_chainId"
   }) as Promise<string>;
 }
+
+//balance
+export const getBalance = (address:string)=> {
+  const provider = getProvider()
+  return provider?.getBalance(address);
+}
