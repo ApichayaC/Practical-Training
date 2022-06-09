@@ -75,24 +75,6 @@ const WalletForm = () => {
         setTokenBalances({ ...tokenBalances });
     };
 
-    const [addressTransfer, setAddressTrans] = useState<string|null>(null)
-    const [addrToken,setAddrToken] = useState("")
-    const [amount, setAmount] = useState('')
-    const [hash,setHash] =useState('')
-
-    const transferBal = async()=> {
-        const abi = ["function transfer(address to, uint amount)"];
-        const contract = new ethers.Contract(addrToken, abi, getProvider()!);
-        // const provider:any = getProvider()?.getSigner()
-        const tokenSigner = contract.connect(getProvider()!.getSigner())
-        const tokenAmount = ethers.utils.parseUnits(amount,18) // decimal->number
-
-        const transaction = await tokenSigner.transfer(addressTransfer,tokenAmount)
-        // console.log(transaction.hash);
-        setHash(transaction.hash)
-        
-        
-    }
 
     useEffect(() => {
         accountData();
@@ -113,7 +95,7 @@ const WalletForm = () => {
 
     return (
         <div className='flex justify-center'>
-            <div className='flex flex-col border-2 rounded-lg border-blue-800 shadow-blue-500 shadow-sm justify-center my-8 w-full mx-36'>
+            <div className='flex flex-col border-2 rounded-lg border-blue-800 shadow-blue-500 shadow-sm justify-center mb-8 w-full mx-36'>
                 <div className='flex flex-col items-center  w-full mb-4'>
                     <div className='bg-bluedark text-white px-4 py-2 m-4 rounded-md w-36 shadow-xl'>
                         <p className='text-2xl font-extrabold  text-center '>Wallet</p>
@@ -148,17 +130,6 @@ const WalletForm = () => {
                     ))}
                 </div>
 
-            </div>
-            <div>
-                <div>
-                    <div>
-                    <input onChange={(e)=>setAddressTrans(e.target.value)}/>
-                    <input onChange={(e)=>setAddrToken(e.target.value)}/>
-                    <input onChange={(e)=>setAmount(e.target.value)}/>
-                    <button onClick={transferBal}>Transfer</button>
-                    <a target="_blank" href={`https://kovan.etherscan.io/tx/${hash}`}>Hash</a>
-                    </div>
-                </div>
             </div>
         </div>
     )

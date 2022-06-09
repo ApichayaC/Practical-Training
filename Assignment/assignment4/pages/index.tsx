@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getWalletAddress, connectWallet, getEthereum } from "../services/wallet-service";
 import Topbar from "../components/Topbar";
 import WalletForm from "../components/WalletForm";
+import Menu from "../components/Menu";
 
 const Home: NextPage = () => {
   const [address, setAddress] = useState<string | null>(null);
@@ -27,6 +28,7 @@ const Home: NextPage = () => {
         (
           <div>
             <Topbar />
+            <Menu />
             <WalletForm />
           </div>
         )

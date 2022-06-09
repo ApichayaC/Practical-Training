@@ -48,7 +48,7 @@ export const KOVAN_TOKENS = [
         address: "0x7079f3762805CFf9C979a5bDC6f5648bCFEE76C8"
     },
     {
-        name: "Link",
+        name: "LINK",
         symbol: "LINK",
         decimals : 18,
         imageUrl : "https://cryptologos.cc/logos/chainlink-link-logo.png?v=022",
@@ -58,17 +58,12 @@ export const KOVAN_TOKENS = [
 
 export const BITKUB_TOKENS = [
     {
-        name: "USD Theter",
-        symbol: "USDT",
-        decimals: 6,
-        imageUrl: "https://cryptologos.cc/logos/tether-usdt-logo.png?v=022",
-        address: "0x6496d167C3c77d31D085CBB6B5396AF7686D98D7"
+        name: "YES token",
+        symbol: "YES",
+        decimals: 18,
+        imageUrl: "/282695789_3177267195847098_2814786195452080321_n.png",
+        address: "0x8debbb77e8a17cffCfC0C7F1f40308886edD3f9f"
     },
-    {
-        name: "USD Coin",
-        symbol: "USDC",
-        decimals: 6,
-        imageUrl: "https://cryptologos.cc/logos/usd-coin-usdc-logo.png?v=022",
-        address: "0x7079f3762805CFf9C979a5bDC6f5648bCFEE76C8"
-    }
+    
+
 ]
