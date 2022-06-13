@@ -1,87 +1,69 @@
-import { useRouter } from 'next/router';
-import React, { useState, useEffect } from 'react'
-import { getNetworkName } from '../constants/network-id';
-import { networkNames } from '../constants/network-name';
-import { getWalletAddress, getChainId, getEthereum } from '../services/wallet-service';
-import { ChainName } from '../types/token.type';
+import React, { useEffect, useState } from 'react'
+import { networkNames } from '../constants/network-name'
+import { getChainId, getEthereum, getWalletAddress } from '../services/wallet-service';
 
 const Topbar = () => {
-    const [address, setAddress] = useState<string | null>(null);
-    const [network, setNetwork] = useState<string | null>(null);
+    const [address, setAddress] = useState<string | null>(getWalletAddress());
+    const [network, setNetwork] = useState<string>('');
 
-    const accountData = async () => {
-        const addr = getWalletAddress() //user address
-        // console.log(addr);
-        setAddress(addr)
-
-        const chainId = await getChainId();
+    const initialNetwork = async () => {
+        const chainId = await getChainId()
         setNetwork(chainId)
     }
 
-    // const addNetworkToWallet = async (item: ChainName) => {
-    //     // if (val === item.chainName) {
-    //     try {
-    //         const wasAdded = await window.ethereum.request({
-    //             method: "wallet_addEthereumChain",
-    //             params: {
-    //                 type: "ERC20", // Initially only supports ERC20, but eventually more!
-    //                 options: {
-    //                     chainId: item.chainId,
-    //                     chainName: item.chainName,
-    //                     nativeCurrency: {
-    //                         name: item.nativeCurrency.name,
-    //                         symbol: item.nativeCurrency.symbol,
-    //                         decimals: 18,
-    //                     },
-    //                     rpcUrls: item.rpcUrls,
-    //                     blockExplorerUrls: item.blockExplorerUrls
-    //                 },
-    //             },
-    //         });
-    //         if (wasAdded) {
-    //             console.log("Thanks for your interest!");
-    //         } else {
-    //             console.log("Your loss!");
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    //     // }
-    // };
-
-    interface addNetworkToWallet {
-        chainId: string; // A 0x-prefixed hexadecimal string
-        chainName: string;
-        nativeCurrency: {
-            name: string;
-            symbol: string; // 2-6 characters long
-            decimals: 18;
-        };
-        rpcUrls: string[];
-        blockExplorerUrls?: string[];
+    const addrWallet = async () => {
+        const address = await getWalletAddress()
+        setAddress(address)
     }
 
-    useEffect(() => {
-        accountData()
-        //show realtime
-        const handleAccountChange = (addresses: string[]) => {
-            setAddress(addresses[0]);
-            accountData();
-        };
+    const handleAddrWallet = async () => {
+        getEthereum()?.on("accountsChanged", (addresses: string[]) => {
+            setAddress(addresses[0])
+        })
+    }
 
-        const handleNetworkChange = (networkId: string) => {
-            setNetwork(networkId);
-            accountData();
-        };
+    const handleChainChange = () => {
 
-        const handleAddNetwork = () => {
-            addNetworkToWallet(networkNames)
+        getEthereum()?.on("chainChanged", (networkId: string) => {
+            setNetwork(networkId)
+        });
+    }
+
+    const handleSwitchNetwork = async (chain: string) => {
+        const targetChain = networkNames.find((item) => item.chainId === chain)
+        if (!targetChain) {
+            return
         }
+        try {
+            await window.ethereum.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId: targetChain.chainId }]
+            })
+        }
+        catch (switchError) {
+            try {
+                await window.ethereum.request({
+                    method: "wallet_addEthereumChain",
+                    params: [targetChain],
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+    useEffect(() => {
+        console.log({ network });
 
-        getEthereum()?.on("accountsChanged", handleAccountChange);
+    }, [network])
 
-        getEthereum()?.on("chainChanged", handleNetworkChange);
-    })
+    useEffect(() => {
+        //network
+        initialNetwork()
+        handleChainChange()
+        //address
+        addrWallet()
+        handleAddrWallet()
+    }, [])
     return (
         <div className=' flex justify-between items-center px-8 py-2 bg-sky-100 shadow relative z-50 w-full'>
             <div className='flex'>
@@ -93,14 +75,17 @@ const Topbar = () => {
             </div>
 
             <div className='flex flex-row text-center'>
-                <div >
+                <div>
                     <select
-                        className='text-bluedark text-center rounded-md bg-sky-200 w-36 mr-2 py-2 shadow'
-                    >
-                        {networkNames.map((item) => (
-                            <option value={item.chainName}>{item.chainName}</option>
-                        )
-                        )}
+                        value={network}
+                        onChange={(e) => { handleSwitchNetwork(e.target.value) }}
+                        className='text-bluedark text-center rounded-md bg-sky-200 w-36 mr-2 py-2 shadow'>
+                        {networkNames.map((item,index) => (
+                            <option key={index} value={item.chainId}>
+                                {item.chainName}
+                            </option>
+                        ))}
+                        {/* <option>{getNetworkName(network)}</option> */}
                     </select>
                 </div>
                 <div>

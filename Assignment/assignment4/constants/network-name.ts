@@ -22,10 +22,10 @@ export const networkNames = [
           blockExplorerUrls: ["https://testnet.bkcscan.com"]
     },
     {
-        chainId : "0x56",
+        chainId : "0x38",
         chainName: "Binance Smart Chain Mainnet",
         nativeCurrency: {
-            name: "BNB coin",
+            name: "Binance",
             symbol: "BNB", 
             decimals: 18 ,
           },
@@ -33,19 +33,58 @@ export const networkNames = [
           blockExplorerUrls: ["https://bscscan.com"]
     },
     {
+        chainId : "0xa4b1",
+        chainName: "Smart Chain - Testnet",
+        nativeCurrency: {
+            name: "Binance",
+            symbol: "BNB", 
+            decimals: 18 ,
+          },
+          rpcUrls: ["https://arb1.arbitrum.io/rpc"],
+          blockExplorerUrls: ["https://testnet.bscscan.com"]
+    },
+    {
         chainId : "0x1",
-        chainName: "Ethereum Mainnet"
+        chainName: "Ethereum Mainnet",
+        nativeCurrency: {
+            name: "Ethereum",
+            symbol: "ETH", 
+            decimals: 18 ,
+          },
+          rpcUrls: ["https://mainnet.infura.io/v3/"],
+          blockExplorerUrls: ["https://etherscan.io"]
     },
     {
         chainId : "0x2a",
-        chainName: "Kovan Test Network"
+        chainName: "Kovan Test Network",
+        nativeCurrency: {
+            name: "Ethereum",
+            symbol: "ETH", 
+            decimals: 18 ,
+          },
+          rpcUrls: ["https://kovan.infura.io/v3/"],
+          blockExplorerUrls: ["https://kovan.etherscan.io"]
     },
     {
         chainId : "0x3",
-        chainName: "Ropsten Test Network"
+        chainName: "Ropsten Test Network",
+        nativeCurrency: {
+            name: "Ethereum",
+            symbol: "ETH", 
+            decimals: 18 ,
+          },
+          rpcUrls: ["https://ropsten.infura.io/v3/"],
+          blockExplorerUrls: ["https://ropsten.etherscan.io"]
     },
     {
         chainId : "0x4",
-        chainName: "Rinkeby Test Network"
+        chainName: "Rinkeby Test Network",
+        nativeCurrency: {
+            name: "Ethereum",
+            symbol: "ETH", 
+            decimals: 18 ,
+          },
+          rpcUrls: ["https://rinkeby.infura.io/v3/"],
+          blockExplorerUrls: ["https://rinkeby.etherscan.io"]
     },
 ]

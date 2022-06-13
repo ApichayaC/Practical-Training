@@ -1,4 +1,4 @@
-import { ETH_TOKENS, KOVAN_TOKENS, RINKEBY_TOKENS, BITKUB_TOKENS } from "./tokens";
+import { ETH_TOKENS, KOVAN_TOKENS, RINKEBY_TOKENS, BITKUB_TOKENS, BINANCE_TOKENS } from "./tokens";
 
 export const getNetworkName = (chainId: string | null) => {
   switch (chainId) {
@@ -10,10 +10,10 @@ export const getNetworkName = (chainId: string | null) => {
       return "Rinkeby Test Network";
     case "0x2a":
       return "Kovan Test Network";
-    case "0x56":
+    case "0x38":
       return "Binance Smart Chain Mainnet";
-    case "0x97":
-      return "Smart Chain Testnet"
+    case "0xa4b1":
+      return "Smart Chain - Testnet"
     case "0x60":
       return "Bitkub Chain Mainnet";
     case "0x6545":
@@ -33,6 +33,8 @@ export const getNetworkTokens = (chainId: string | null) => {
       return KOVAN_TOKENS;
     case "0x60":
       return BITKUB_TOKENS;
+      case "0x38":
+        return BINANCE_TOKENS;
     default:
       return ETH_TOKENS;
   }
@@ -40,8 +42,10 @@ export const getNetworkTokens = (chainId: string | null) => {
 
 export const getNetworkCurr = (chainId: string | null) => {
   switch (chainId) {
-    case "0x56":
+    case "0x38":
       return "BNB";
+    case "0xa4b1":
+      return "BNB"
     case "0x61":
       return "BTC";
     case "0x38":

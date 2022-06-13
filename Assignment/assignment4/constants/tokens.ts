@@ -64,6 +64,21 @@ export const BITKUB_TOKENS = [
         imageUrl: "/282695789_3177267195847098_2814786195452080321_n.png",
         address: "0x8debbb77e8a17cffCfC0C7F1f40308886edD3f9f"
     },
-    
+]
 
+export const BINANCE_TOKENS=[
+    {
+        name: "USD Theter",
+        symbol: "USDT",
+        decimals: 18,
+        imageUrl: "https://cryptologos.cc/logos/tether-usdt-logo.png?v=022",
+        address: "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d"
+    },
+    {
+        name: "BUSD Token",
+        symbol: "BUSD",
+        decimals: 18,
+        imageUrl: "https://cryptologos.cc/logos/binance-usd-busd-logo.png?v=022",
+        address: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"
+    },
 ]

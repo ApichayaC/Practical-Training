@@ -19,7 +19,6 @@ const WalletForm = () => {
     const getTokenBalance = async (tokenAddress: string, ownerAddress: string) => {
         const abi = ["function balanceOf(address owner) view returns (uint256)"];
         const contract = new ethers.Contract(tokenAddress, abi, getProvider()!);
-        console.log(tokenAddress, ownerAddress)
         return contract.balanceOf(ownerAddress);
     };
 
@@ -60,7 +59,6 @@ const WalletForm = () => {
         if (bal) setBalance(formatEther(bal));
 
         const tokenList = getNetworkTokens(chainId);
-
         const tokenBalList = await Promise.all(
             tokenList.map((token) =>
                 getTokenBalance(token.address, addr).then((res) =>
@@ -68,7 +66,6 @@ const WalletForm = () => {
                 )
             )
         );
-
         tokenList.forEach((token, i) => {
             tokenBalances[token.symbol] = tokenBalList[i];
         });
