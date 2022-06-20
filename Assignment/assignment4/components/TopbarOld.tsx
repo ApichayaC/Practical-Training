@@ -12,6 +12,7 @@ const Topbar = () => {
     const [network, setNetwork] = useState<string | null>(null);
     // const test = localStorage.getItem(STORAGE_KEY.TOKEN_NAME)
     const [value, setValue] = useState()
+    
     const accountData = async () => {
         const addr = getWalletAddress() //user address
         setAddress(addr)
