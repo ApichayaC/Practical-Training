@@ -220,8 +220,8 @@
       ]
     },
     "/Users/apichaya/Desktop/Pratical-Training/Assignment/assignment5/assignment/contracts/Gldtoken.sol": {
-      "lastModificationDate": 1655789299294,
-      "contentHash": "1c50ff3bef89d1bfea5eec8ae25cb63c",
+      "lastModificationDate": 1655791043876,
+      "contentHash": "98ac3d742e7e4ed423bd960ab25d8344",
       "sourceName": "contracts/Gldtoken.sol",
       "solcConfig": {
         "version": "0.8.4",
