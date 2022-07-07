@@ -25,13 +25,17 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC20__factory>;
     getContractFactory(
-      name: "GldToken",
+      name: "ACToken",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.GldToken__factory>;
+    ): Promise<Contracts.ACToken__factory>;
     getContractFactory(
       name: "Greeter",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Greeter__factory>;
+    getContractFactory(
+      name: "Vote",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Vote__factory>;
 
     getContractAt(
       name: "ERC20",
@@ -49,15 +53,20 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IERC20>;
     getContractAt(
-      name: "GldToken",
+      name: "ACToken",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.GldToken>;
+    ): Promise<Contracts.ACToken>;
     getContractAt(
       name: "Greeter",
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Greeter>;
+    getContractAt(
+      name: "Vote",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Vote>;
 
     // default types
     getContractFactory(
